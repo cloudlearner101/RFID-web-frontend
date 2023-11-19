@@ -1,0 +1,543 @@
+/* src/App.css */
+.login-container {
+    text-align: center;
+    margin-top: 100px;
+
+  }
+
+
+  .login-button{
+color: navajowhite;
+background-color:  sienna;
+border-radius: 4px;
+background: sienna;
+--bs-btn-color: sienna;
+    --bs-btn-bg: sienna;
+    --bs-btn-border-color: sienna;
+    --bs-btn-hover-color: navajowhite;
+    --bs-btn-hover-bg: sienna;
+    --bs-btn-hover-border-color: sienna;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: navajowhite;
+    --bs-btn-active-bg: sienna;
+    --bs-btn-active-border-color: sienna;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: sienna;
+    --bs-btn-disabled-bg: sienna;
+
+  }
+  .login-button:disabled{
+    color: navajowhite;
+    background-color: sienna;
+    border-color: sienna;
+  }
+
+  .logout-button {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    margin: 4px;
+    background-color: #040405;
+    padding: 5px 15px;
+    border: none;
+    color: navajowhite;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .main_header_style {
+    background-color:   sienna;
+    min-height: 55px;
+    color: navajowhite;
+  
+    .mdl-layout__header-row {
+      padding: 0px 20px 0 15px;
+      height: 45px;
+    }
+  
+    .mdl-layout__header-row button {
+      height: 45px;
+      background-color:  sienna;;
+      color:   var(--primary_btn_color);
+      text-transform: capitalize;
+      padding: 0 10px;
+    }
+  }
+  
+  .card-header1{
+    background-color: sienna;
+    color: navajowhite;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+
+  .card-footer1{
+    height: 40px;
+    background-color: sienna;
+    color: navajowhite;
+  }
+
+  .main_footer_style {
+    padding: -1px 15px;
+    background-color: sienna;
+    color: navajowhite;
+    position: relative;
+    z-index: 99;
+    bottom: 0; 
+    width: 100%;
+    margin-bottom: -14px;
+  }
+  
+  .main-container {
+    margin-top: 65px;
+    margin-bottom: 65px;
+  }
+
+  .h1-center{
+    text-align: center;
+  }
+
+  .mandatory-symbol{
+    color: red;
+  }
+
+  .mt10{
+    margin-top: 20px;
+  }
+  
+  .label-adjust{
+    color: black;
+    font-weight: 500;
+  }
+
+  .show-password{
+    color: black;
+    font-weight: 500;
+    margin-left: 180px;
+  }
+
+
+  .show-checkbox{
+    margin-left: 180px;
+    margin-top: 3px;
+    margin-right: 10px;
+    width: 15px;
+  }
+
+  .show-pass{
+    display: flex;
+    flex-direction: row-reverse;
+
+  }
+
+  .drawer-button {
+    position: absolute;
+    right: 1;
+    top: 0px;
+    margin: 0px;
+    background-color: sienna;
+    color: navajowhite;
+
+    border: none; /* Remove the button border */
+
+    cursor: pointer; /* Cursor style on hover */
+    font-size: 16px; /* Font size */
+  }
+
+  .inside-list-drawer{
+     right: 0;
+    top: 0px;
+    margin: 0px;
+    background-color: sienna;
+    color: navajowhite; /* White text color */
+    border: none; /* Remove the button border */
+    cursor: pointer; /* Cursor style on hover */
+    font-size: 16px; /* Font size */
+  }
+
+    .inside-icon-style {
+      right: 0;
+      color: navajowhite;
+    }
+
+  .list-item-text{
+    margin-right: 10px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: navajowhite;
+  }
+  .inner-list-item-text{
+    margin-right: 100px;
+    margin-left: -5px;
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: navajowhite;
+  }
+
+  .list-view{
+    width: 200px;
+    background-color: sienna;
+    color: navajowhite;
+    height: 200%;
+  }
+
+  .icon-color {
+    color: navajowhite;
+  }
+
+  .listItemIconStyle {
+    margin-right: 5px !important;
+  }
+  .icon-style{
+    background-color: navajowhite ;
+  }
+
+  .btn {
+    border-radius: 6px;
+  }
+
+  .p0 {
+    padding: 0;
+  }
+
+  .custom_paper.MuiPaper-root {
+    box-shadow: none;
+    background-color: transparent;
+  }
+  
+  .custom_paper {
+    width: 100%;
+    margin-bottom: 5px;
+    box-shadow: none;
+  
+    .tableWrapper {
+      padding: 0 20px;
+      overflow-X: auto;
+      margin-top: 0px;
+  
+      table.wordEllipsis td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+  
+      table {
+        min-width: 500px;
+        border-collapse: separate;
+        border-spacing: 0 0.6em;
+  
+        .MuiTableCell-root {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          max-width: 300px;
+          word-wrap: break-word;
+          border: 0px;
+          font-size: 12px;
+  
+        }
+  
+        .MuiTableCell-head {
+          color:   var(--table_header_text_color);
+          text-transform: uppercase;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+  
+        thead.MuiTableHead-root {
+          background-color: transparent;
+        }
+  
+        tbody {
+          tr.MuiTableRow-root {
+            background-color:   var(--table_row_bgcolor);
+          }
+  
+          tr.MuiTableRow-root.MuiTableRow-hover:hover {
+            background-color:   var(--table_row_bgcolor_hover)
+          }
+  
+          td:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+  
+          td:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+          }
+  
+          .MuiTableCell-body,
+          tr td.MuiTableCell-root a i,
+          tr td.MuiTableCell-root button i {
+            color: #57606F;
+          }
+  
+          .btn.disabled,
+          .btn[disabled],
+          fieldset[disabled] .btn {
+            opacity: 0.15;
+          }
+  
+          tr td.MuiTableCell-root button {
+            background: none;
+          }
+  
+          tr:hover td.MuiTableCell-root,
+          tr:hover td.MuiTableCell-root a i,
+          tr:hover td.MuiTableCell-root button i {
+            color:   var(--theme_background_color);
+          }
+  
+          td .form-control,
+          td .MuiCheckbox-root {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+  
+  .table_NoData_style {
+    color: #337ab7 !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    font-size: 1.1em !important;
+  }
+  
+  .right-panel-action {
+    text-align: right;
+    padding: 5px
+  }
+  
+
+  .button-right {
+    text-align: right;
+    padding: 5px;
+    background-color: navajowhite;
+  }
+  
+  
+  .mr5 {
+    margin-right: 12px;
+      border: solid;
+      border-color: cadetblue;
+      background-color: #57b2b3;
+      border-radius: 15px
+  }
+  
+  .mr5:hover{
+    cursor: pointer;
+  }
+  
+  .para-style{
+      margin-top: 0px;
+      margin-bottom: 0px;
+  }
+
+  .right-panel-action .search-input-box,
+.custom-date-input {
+  max-width: 200px;
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.mr10{
+  margin-right: 10px;
+}
+
+
+.ntf-form-footer {
+  background-color: navajowhite;
+  padding: 15px;
+
+}
+
+.save-submit{
+  background: #7b9691;
+  color: black;
+  margin-right: 12px;
+  width: 67px;
+  font-weight: 600;
+}
+
+
+.cancel-submit{
+  background: #7b9691;
+  color: black;
+  margin-right: 100px;
+  font-weight: 600;
+}
+
+.step {
+  background-color: navajowhite;
+  min-height: 100px;
+  padding: 20px;
+  box-shadow: 2px 2px 3px 0px #999;
+  display: flex;
+  justify-content: center;
+}
+
+.config-block {
+  background-color: #F4F4F4;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.text-box {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-horizontal.custom-horizontal-form .form-group {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.control-label {
+  direction: ltr;
+}
+
+.p80 {
+  padding-top: 40px;
+  text-align: center;
+}
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 70px;
+
+}
+
+.flex-container > div {
+  background-color: #7b9691;
+
+  font-size: 18px;
+}
+
+.flex-width{
+  width: 40%;
+  background-color: #7b9691;
+}
+
+.tableTitle{
+  display: flex;
+  justify-content: center;
+  background-color: navajowhite;
+}
+
+.tableTitle-text{
+  font-size: xx-large;
+  font-weight: 600;
+}
+
+.date-input-container {
+  display: flex;
+  align-items: center;
+  width: 25%;
+}
+
+.date-input-container3 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.date-input-container4 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* -------------------------- CustomCard.js CSS -------------------------- */
+
+/* Card Stats */
+.card-stats .card-body { padding: 15px 15px 0px; }
+.card-stats .card-body .numbers { text-align: right; font-size: 2em; }
+.card-stats .card-footer { padding: 0px 15px 15px; }
+.card-stats .card-footer hr { margin-top: 10px; margin-bottom: 15px; }
+
+/* Numbers */
+.card .numbers { font-size: 2em; }
+
+/* Card Category */
+.card-category { font-weight: 500; color: #444; font-size: 18px; }
+
+/* Stats */
+.stats i {
+  margin-right: 5px; position: relative;
+  top: 0px; color: #0094D6; 
+}
+
+.txt-center{
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.mr-submit{
+  background-color: sienna;
+    color: navajowhite;
+}
+
+.dhpc-style{
+  font-size: 30px;
+    font-weight: 600;
+    color: sienna;
+}
+
+.table-head{
+  background-color: sienna
+  
+  
+}
+
+.table-cell-head{
+  color: navajowhite;
+  font-weight: bold;
+    font-family: emoji;
+    font-size: medium;
+}
+
+.content{
+  margin-left: 20px;
+}
+
+.footer-class{
+  bottom: 0;
+  position: absolute;
+}
+
+.SpinnerOpacity {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: #ffffffa3;
+  z-index: 999;
+  margin: 0px -20px;
+}
+
+.CircularProgressStyle {
+  position: fixed;
+  left: 49%;
+  top: 49%;
+  color: #b00b0b !important;
+}
+
+.bc-color{
+  background-color: #7b9691;
+}
+
+.label-bold{
+  font-weight: 600;
+}

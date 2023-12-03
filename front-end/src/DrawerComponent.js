@@ -4,7 +4,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Home, Inbox, Mail } from '@mui/icons-material';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DvrTwoToneIcon from '@mui/icons-material/DvrTwoTone';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -22,7 +21,7 @@ class DrawerComponent extends Component {
   }
 
   componentDidMount() {
-    if(this.props.userRole != undefined && this.props.userRole != ''){
+    if(this.props.userRole !== undefined && this.props.userRole !== ''){
       this.setState({ roleType: this.props.userRole });
     }
     else{

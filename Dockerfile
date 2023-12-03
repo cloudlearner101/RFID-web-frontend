@@ -1,15 +1,22 @@
+# Use a smaller base image
 FROM node:16-alpine AS builder
 
+# Set the working directory
 WORKDIR /app
 
-COPY front-end/package.json ./
+# Copy package.json and package-lock.json separately to leverage Docker cache
+COPY front-end/package.json .
+COPY front-end/package-lock.json .
 COPY front-end/public/ public/
 COPY front-end/src/ src/
-RUN npm i --legacy-peer-deps
+
+# Expose the port
+ENV PORT=3005
+EXPOSE $PORT
+
+RUN npm i --production --force
 RUN npm run build
 
-EXPOSE 3000
+# Start the application
+CMD ["npm", "start"]
 
-ENV REACT_APP_API_URL="http://jswntreports.com"
-
-CMD ["npm","start"]

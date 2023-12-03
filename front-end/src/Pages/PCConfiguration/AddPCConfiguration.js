@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Typography } from '@material-ui/core';
-import { Password } from '@mui/icons-material';
 
 class AddPCConfiguration extends Component {
 
@@ -60,11 +58,11 @@ class AddPCConfiguration extends Component {
           body: JSON.stringify(this.state.PCConfigData)
         })
           .then((response) => response.json()).then((response) => {
-            if (response.addUser.successFlag == "1") {
+            if (response.addUser.successFlag === "1") {
               alert("User Added Successfully!!")
               this.props.handlePages(true)
             }
-            if (response.addUser.successFlag == "0") {
+            if (response.addUser.successFlag === "0") {
               alert("Missing Required Fields!!")
               this.props.handlePages(true)
             }

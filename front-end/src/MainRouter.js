@@ -1,17 +1,16 @@
 import React from 'react';
-import { Switch, Routes, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Page1/Dashboard';
 import PcConfiguration from './Pages/PCConfiguration/PcConfiguration';
 import PrivateRoute from './PrivateRoute';
 import VechileMovementReport from './Pages/VechileMovementReport/VechileMovementReport';
 import VechileMasterList from './Pages/VechileMaster/VechileMasterList';
-import auth from './authServive';
 
-//const isAuthenticated = localStorage.getItem('isLoggedIn');
+
 
 function AuthenticateRoute({ component: Component, authenticated, authSuccessUrl, ...rest }) {
-    //return <Route exact path='/' component={<Login/>} />;
+ 
     return <Route exact render={props => (localStorage.getItem('isLoggedIn') === true ? <Redirect to={authSuccessUrl} /> : <Component {...props} />)} {...rest} />;
 }
 

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import {
-  Card, CardBody, CardTitle, CardFooter,
+  Card, CardBody, CardTitle, 
   Row, Col
 } from "reactstrap";
 
-import { Link } from "react-router-dom";
 
 const CustomCard = (props) => {
   return (

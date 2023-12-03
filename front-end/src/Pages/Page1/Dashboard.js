@@ -6,18 +6,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Checkbox } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
-    Card, CardBody,
     Row, Col
   } from "reactstrap";
   
   import CustomCard from '../../CustomCard';
-import { FlareSharp } from '@mui/icons-material';
   
   let cards = [
     {
@@ -103,7 +100,6 @@ class Dashboard extends Component {
             this.setState({ data: undefined })
           }
 
-          console.log("data_______", this.state.data)
         }
         this.setState({ SpinnerFlag: false })
       }).catch((error) => {
@@ -137,8 +133,12 @@ class Dashboard extends Component {
       const startIndex = page * rowsPerPage;
       const endIndex = startIndex + rowsPerPage;
 
+      let pageData;
       // Slice the data array to display only the rows for the current page
-      const pageData = data.slice(startIndex, endIndex);
+      if(data.length){
+         pageData = data.slice(startIndex, endIndex);
+      }
+      
 
 
       const headRows = [

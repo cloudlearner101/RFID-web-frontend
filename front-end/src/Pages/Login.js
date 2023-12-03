@@ -3,12 +3,6 @@ import Dashboard from './Page1/Dashboard';
 import '../css/style.css';
 
 
-const users = [
-  { username: 'user1', password: 'password1', role: 'admin' },
-  { username: 'user2', password: 'password2', role: 'user' },
-  { username: 'user3', password: 'password3', role: 'admin' },
-];
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -49,9 +43,9 @@ class Login extends Component {
     });
 
     if (!response.ok) {
+      alert("Invalid  login Credentials")
       window.location.reload(false);
       throw new Error(`HTTP error! Status: ${response.status}`);
-      
     }
     return response;
   }
@@ -59,20 +53,24 @@ class Login extends Component {
   handleLogin = async (e) => {
     e.preventDefault(); // Prevent the form from being submitted
     const { username, password } = this.state;
-    const res = await this.validateCredentials(username, password);
-    const data = await res.json();
-
-    if (data.outputJson.webUiLogin.successFlag == "1") {
-      this.setState({ loginSuccess: true });
-      this.setState({ role: data.outputJson.webUiLogin.aaData.USER_TYPE });
-      localStorage.setItem('roleType', data.outputJson.webUiLogin.aaData.USER_TYPE);
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('leaseCode', data.outputJson.webUiLogin.aaData.LEASECODE)
-      localStorage.setItem('username', data.outputJson.webUiLogin.aaData.USER_NAME)
-      window.location.reload(false);
-    } else {
-      alert('Invalid credentials');
+    try{
+      const res = await this.validateCredentials(username, password);
+      const data = await res.json();
+      if (data.outputJson.webUiLogin.successFlag === "1") {
+        this.setState({ loginSuccess: true });
+        this.setState({ role: data.outputJson.webUiLogin.aaData.USER_TYPE });
+        localStorage.setItem('roleType', data.outputJson.webUiLogin.aaData.USER_TYPE);
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('leaseCode', data.outputJson.webUiLogin.aaData.LEASECODE)
+        localStorage.setItem('username', data.outputJson.webUiLogin.aaData.USER_NAME)
+        window.location.reload(false);
+      } else {
+        alert('Invalid credentials');
+      }
+    }catch(error){
+console.log("invalid credentials")
     }
+   
   };
   
 
@@ -91,7 +89,7 @@ class Login extends Component {
           <Dashboard userRole={this.state.role}/>
         ) : (
           <div className="offset-lg-4 col-lg-4">
-            <form className='container main-container' onSubmit={this.handleLogin}>
+            <form className='container main-container'>
               <div className='card'>
                 <div className='card-header1'>
                   <h1 className='h1-center'>Login</h1>
@@ -140,7 +138,7 @@ class Login extends Component {
                 </div>
 
                 <div className='card-footer'>
-                  <button type='submit' className='login-button' >Login</button>
+                  <button type='submit' className='login-button' onClick={this.handleLogin}>Login</button>
                 </div>
               </div>
             </form>

@@ -2,13 +2,10 @@ import React from 'react';
 import { Footer, FooterSection, FooterLinkList } from 'react-mdl';
 
 class MainFooter extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
-        const { t } = this.props;
-
+      
         // Custom CSS styles to remove list-style and padding
         const customStyles = {
             listStyle: 'none', // Remove list-style

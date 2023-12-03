@@ -6,7 +6,7 @@ import MainFooter from "./MainFooter";
 
 const App = props => (
   
-  <BrowserRouter >
+  <BrowserRouter basename="/rfid-web-app">
   <MainHeader/>
   <div>
   <MainRouter/>

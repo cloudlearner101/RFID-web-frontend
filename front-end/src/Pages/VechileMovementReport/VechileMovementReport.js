@@ -4,14 +4,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Checkbox } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DriveFileRenameOutlineSharpIcon from '@mui/icons-material/DriveFileRenameOutlineSharp';
 
 import * as XLSX from 'xlsx';
 
@@ -26,8 +23,8 @@ class VechileMasterList extends Component {
             data: [],
             page: 0,
             rowsPerPage: 10,
-            startDate: new Date,
-            endDate: new Date,
+            startDate: new Date(),
+            endDate: new Date(),
             SpinnerFlag: false
         }
     }
@@ -45,16 +42,9 @@ class VechileMasterList extends Component {
 
     getdata() {
         this.setState({ SpinnerFlag: true })
-        const payload = {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': "application/json",
-                'Access-Control-Allow-Origin': '*'
-            }
-        };
+        
         let role = localStorage.getItem('roleType');
-        if (role == 'Admin') {
+        if (role === 'Admin') {
             fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMovement/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
@@ -103,7 +93,7 @@ class VechileMasterList extends Component {
         };
         fetch(`${process.env.REACT_APP_API_URL}/rfid/getVmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
             if (response) {
-                if(response.message == "No data found for the given Lease Code and date range"){
+                if(response.message === "No data found for the given Lease Code and date range"){
                     alert("No Details Found for the Given Date Range")
                     this.setState({ SpinnerFlag: false })
                 }

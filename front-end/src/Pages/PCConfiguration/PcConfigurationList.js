@@ -4,18 +4,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Checkbox } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import DriveFileRenameOutlineSharpIcon from '@mui/icons-material/DriveFileRenameOutlineSharp';
-import AddPCConfiguration from './AddPCConfiguration';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
 
 import * as XLSX from 'xlsx';
-import { Flag } from '@mui/icons-material';
 
 let searchFocusStyle = {};
 class PcConfigurationList extends Component {
@@ -52,14 +49,7 @@ class PcConfigurationList extends Component {
 
   getdata() {
     this.setState({ SpinnerFlag: true })
-    const payload = {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': "application/json",
-        'Access-Control-Allow-Origin': '*'
-      }
-    };
+   
     fetch(`${process.env.REACT_APP_API_URL}/rfid/pcConfigDtls`).then((response) => response.json()).then((response) => {
       if (this._mounted) {
         if (response) {
@@ -104,14 +94,7 @@ class PcConfigurationList extends Component {
 
   //Update API
   getSelectedData = (data) => {
-    console.log("edit api should call");
-    const payload = {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': "application/json"
-      }
-    };
+    
     fetch(`${process.env.REACT_APP_API_URL}/rfid/getPcConfigById/${data.ID}`).then((response) => response.json()).then((response) => {
       console.log("Response from edit api", response)
       if (response.data) {
@@ -124,14 +107,10 @@ class PcConfigurationList extends Component {
   };
 
 
-  // handlePages = (event, newPage) => {
-  //   this.setState({ page: newPage });
-  // };
-
   handleChangeRowsPerPage = (event) => {
     this.setState({
       rowsPerPage: parseInt(event.target.value, 10),
-      page: 0, // Reset page to the first page when changing rows per page
+      page: 0, 
     });
   };
 

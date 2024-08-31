@@ -541,3 +541,30 @@ background: sienna;
 .label-bold{
   font-weight: 600;
 }
+
+.netWeight{
+  max-width: 100px;
+}
+
+.total-net-weight{
+  max-width: 200px;
+  font-size: 1rem;
+  padding-top: 20px;
+  padding-left: 8rem;
+  font-weight: 700;
+  color: sienna;
+}
+
+.mt{
+  font-weight: 700;
+    color: sienna;
+    width: 20px;
+  color: sienna;
+  margin-left: -8px;
+  padding-top: 10px;
+  margin-right: 32px;
+}
+
+.netflex{
+  display: flex
+}

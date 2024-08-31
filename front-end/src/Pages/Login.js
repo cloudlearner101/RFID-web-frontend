@@ -34,7 +34,7 @@ class Login extends Component {
       password: password
     }
 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/rfid/webUI/login`, {
+    const response = await fetch(`https://jswntreports.com/rfid/webUI/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

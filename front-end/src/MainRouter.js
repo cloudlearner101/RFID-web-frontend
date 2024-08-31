@@ -6,6 +6,7 @@ import PcConfiguration from './Pages/PCConfiguration/PcConfiguration';
 import PrivateRoute from './PrivateRoute';
 import VechileMovementReport from './Pages/VechileMovementReport/VechileMovementReport';
 import VechileMasterList from './Pages/VechileMaster/VechileMasterList';
+import InternalMasterList from './Pages/InternalmovementReport/InternalMovementReport';
 
 
 
@@ -50,6 +51,13 @@ const MainRouter = (props) => (
         <PrivateRoute
             path="/vechileMaster"
             component={VechileMasterList}
+            isAuthenticated={localStorage.getItem('isLoggedIn')}
+            {...props}
+        />
+
+    <PrivateRoute
+            path="/internalMaster"
+            component={InternalMasterList}
             isAuthenticated={localStorage.getItem('isLoggedIn')}
             {...props}
         />

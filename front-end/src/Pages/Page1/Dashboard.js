@@ -19,14 +19,14 @@ import {
   let cards = [
     {
       order: 1,
-      heading: "Tare Weight Vechile Count",
+      heading: "Tare Weight Vehicle Count",
       count: 0,
       color: "#0095ff",
       icon: "fa fa-plus-square fa-4x"
     },
     {
       order: 2,
-      heading: "Gross Weight Vechile Count",
+      heading: "Gross Weight Vehicle Count",
       count: 0,
       color: "#008000",
       icon: "fa fa-medkit fa-4x"
@@ -89,7 +89,7 @@ class Dashboard extends Component {
         },
         body: JSON.stringify(this.state)
       };
-      fetch(`${process.env.REACT_APP_API_URL}/rfid/getVehicleDetails`, payload).then((response) => response.json()).then((response) => {
+      fetch(`https://jswntreports.com/rfid/getVehicleDetails`, payload).then((response) => response.json()).then((response) => {
         if (this._mounted) {
           if (response) {
             this.setState({ data: response.vehicleDetails})
@@ -143,8 +143,8 @@ class Dashboard extends Component {
 
       const headRows = [
         { id: 'VEHICLE_ID', alignment: 'left', disablePadding: false, label: "ID" },
-        { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vechile Number" },
-        { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vechile Type" },
+        { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vehicle Number" },
+        { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vehicle Type" },
        
     ];
       return (
@@ -179,7 +179,7 @@ class Dashboard extends Component {
             
                 <div className="tableWrapper">
                   <h3>
-                    Pending Gross Weight Vechile Report
+                    Pending Gross Weight Vehicle Report
                   </h3>
                         <Table aria-labelledby="tableTitle" size='medium'>
                             <TableHead className='table-head'>
@@ -188,7 +188,7 @@ class Dashboard extends Component {
                                         <TableCell key={row.id}
                                             className={row.id === 'action' && this.props.editFlag === false ? 'hidden' : ''}
                                             align={row.alignment}
-                                            style={{color: 'navajowhite' }}
+                                            style={{color: 'sienna',fontWeight: 'bold' }}
                                             padding={row.disablePadding ? 'none' : 'default'}>
                                             {row.label}
                                         </TableCell>

@@ -45,7 +45,7 @@ class VechileMasterList extends Component {
         
         let role = localStorage.getItem('roleType');
         if (role === 'Admin') {
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMovement/all`).then((response) => response.json()).then((response) => {
+            fetch(`https://jswntreports.com/rfid/vehicleMovement/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -61,7 +61,7 @@ class VechileMasterList extends Component {
         }
         else{
             this.setState({ SpinnerFlag: true })
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+            fetch(`https://jswntreports.com/rfid/vehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -91,7 +91,7 @@ class VechileMasterList extends Component {
             'Access-Control-Allow-Origin': '*'
           }
         };
-        fetch(`${process.env.REACT_APP_API_URL}/rfid/getVmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+        fetch(`https://jswntreports.com/rfid/getByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
             if (response) {
                 if(response.message === "No data found for the given Lease Code and date range"){
                     alert("No Details Found for the Given Date Range")
@@ -158,8 +158,8 @@ class VechileMasterList extends Component {
         
         const exportData = data.map((row) => ({
           'ID': row.ID,
-          'Vechile Number': row.VEHICLE_NUMBER,
-          "Vechile Type": row.VEHICLE_TYPE,
+          'Vehicle Number': row.VEHICLE_NUMBER,
+          "Vehicle Type": row.VEHICLE_TYPE,
           "Tag ID": row.TAG_ID,
           'Transporter Name': row.TRANSPORTER_NAME,
           'Tare Weight': row.TARE_WEIGHT,
@@ -193,8 +193,8 @@ class VechileMasterList extends Component {
 
         const headRows = [
             { id: 'ID', alignment: 'left', disablePadding: false, label: "ID" },
-            { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vechile Number" },
-            { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vechile Type" },
+            { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vehicle Number" },
+            { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vehicle Type" },
             { id: 'TAG_ID', alignment: 'center', disablePadding: false, label: "Tag ID" },
             { id: 'TRANSPORTER_NAME', alignment: 'left', disablePadding: false, label: "Transporter Name" },
             { id: 'TARE_WEIGHT', alignment: 'left', disablePadding: false, label: "Tare Weight" },
@@ -212,7 +212,7 @@ class VechileMasterList extends Component {
                 <div className='main-dhpc-export'>
                     <Toolbar className="header">
                         <Typography variant="h6" id="tableTitle">
-                            <p className='dhpc-style'>Vechile Movement Report</p>
+                            <p className='dhpc-style'>Vehicle Movement Report</p>
                         </Typography>
 
                         <div style={{ flex: '1 1 35%' }} />
@@ -257,8 +257,9 @@ class VechileMasterList extends Component {
                                         <TableCell  key={row.id}
                                             className={row.id === 'action' && this.props.editFlag === false ? 'hidden' : 'table-cell-head'}
                                             align={row.alignment}
-                                            color='navajowhite'
-                                            style={{color: 'navajowhite' }}
+                                            color='sienna'
+                                            
+                                            style={{color: 'sienna', fontWeight: 'bold' }}
                                             padding={row.disablePadding ? 'none' : 'default'}>
                                             {row.label}
                                             

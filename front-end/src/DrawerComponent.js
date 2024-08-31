@@ -9,6 +9,7 @@ import DvrTwoToneIcon from '@mui/icons-material/DvrTwoTone';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { Link } from 'react-router-dom';
 
 class DrawerComponent extends Component {
@@ -90,15 +91,21 @@ class DrawerComponent extends Component {
                   <ListItemIcon>
                     <ViewListIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Master" />
+                  <ListItemText primary="Vehicle Master" />
                 </ListItem>
                 <ListItem button component={Link} to="/vechileMovement">
                   <ListItemIcon>
                     <LocalShippingIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Movement Report" />
+                  <ListItemText primary="Vehicle Movement Report" />
                 </ListItem>
                 
+                <ListItem button component={Link} to="/internalMaster">
+                  <ListItemIcon>
+                    <DescriptionIcon className='icon-color'/>
+                  </ListItemIcon>
+                  <ListItemText primary="Internal Movement Report" />
+                </ListItem>
               </List>
              : 
               <List className='list-view'>
@@ -126,13 +133,19 @@ class DrawerComponent extends Component {
                   <ListItemIcon>
                     <ViewListIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Master List" />
+                  <ListItemText primary="Vehicle Master List" />
                 </ListItem>
                 <ListItem button component={Link} to="/vechileMovement">
                   <ListItemIcon>
                     <LocalShippingIcon className='icon-color' />
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Movement Report" />
+                  <ListItemText primary="Vehicle Movement Report" />
+                </ListItem>
+                <ListItem button component={Link} to="/internalMaster">
+                  <ListItemIcon>
+                    <DescriptionIcon className='icon-color'/>
+                  </ListItemIcon>
+                  <ListItemText primary="Internal Movement Report" />
                 </ListItem>
               </List>
             }

@@ -42,7 +42,7 @@ class VechileMasterList extends Component {
        
         let role = localStorage.getItem('roleType');
         if(role ==='Admin'){
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMaster/all`).then((response) => response.json()).then((response) => {
+            fetch(`https://jswntreports.com/rfid/vehicleMaster/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -58,7 +58,7 @@ class VechileMasterList extends Component {
         }
         else{
             this.setState({ SpinnerFlag: true })
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMaster/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+            fetch(`https://jswntreports.com/rfid/vehicleMaster/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -123,9 +123,9 @@ class VechileMasterList extends Component {
         
         const exportData = data.map((row) => ({
           'ID': row.ID,
-          'Vechile Number': row.VEHICLE_NUMBER,
+          'Vehicle Number': row.VEHICLE_NUMBER,
           "Tag ID": row.TAG_ID,
-          "Vechile Type": row.VEHICLE_TYPE,
+          "Vehicle Type": row.VEHICLE_TYPE,
           'Lease Code': row.LEASE_CODE,
           'Modified Date': row.MODIFIED_DATE,
           'Tare Weight': row.TARE_WEIGHT,
@@ -165,9 +165,9 @@ class VechileMasterList extends Component {
 
         const headRows = [
             { id: 'VEHICLE_ID', alignment: 'left', disablePadding: false, label: "ID" },
-            { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vechile Number" },
+            { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vehicle Number" },
             { id: 'TAG_ID', alignment: 'left', disablePadding: false, label: "Tag ID" },
-            { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vechile Type" },
+            { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vehicle Type" },
             { id: 'LEASE_CODE', alignment: 'left', disablePadding: false, label: "Lease Code" },
             { id: 'MODIFIED_DATE', alignment: 'left', disablePadding: false, label: "Modified Date" },
             { id: 'TARE_WEIGHT', alignment: 'left', disablePadding: false, label: "Tare Weight" },
@@ -181,7 +181,7 @@ class VechileMasterList extends Component {
                 <div className='main-dhpc-export'>
                     <Toolbar className="header">
                         <Typography variant="h6" id="tableTitle">
-                            <p className='dhpc-style'>Vechile Master</p>
+                            <p className='dhpc-style'>Vehicle Master</p>
                         </Typography>
 
                         <div style={{ flex: '1 1 35%' }} />
@@ -212,7 +212,7 @@ class VechileMasterList extends Component {
                                         <TableCell key={row.id}
                                             className={row.id === 'action' && this.props.editFlag === false ? 'hidden' : ''}
                                             align={row.alignment}
-                                            style={{color: 'navajowhite' }}
+                                            style={{color: 'sienna', fontWeight: 'bold' }}
                                             padding={row.disablePadding ? 'none' : 'default'}>
                                             
                                             {row.label}

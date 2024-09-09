@@ -32,8 +32,8 @@ class InternalMasterList extends Component {
 
     componentDidMount() {
         this._mounted = true;
-        console.log("hello")
-        //this.getdata();
+        // console.log("hello")
+        this.getdata();
     };
 
     componentWillUnmount() {
@@ -45,75 +45,110 @@ class InternalMasterList extends Component {
         this.setState({ SpinnerFlag: true })
         
         let role = localStorage.getItem('roleType');
-        // if (role === 'Admin') {
-        //     fetch(`https://jswntreports.com/rfid/vehicleMovement/all`).then((response) => response.json()).then((response) => {
-        //         if (this._mounted) {
-        //             if (response) {
-        //                 this.setState({ data: response.data })
-        //             } else {
-        //                 this.setState({ data: undefined })
-        //             }
-        //         }
-        //         this.setState({ SpinnerFlag: false })
-        //     }).catch((error) => {
-        //         console.log(error)
-        //         this.setState({ SpinnerFlag: false })
-        //     })
-        // }
-        // else{
-        //     this.setState({ SpinnerFlag: true })
-        //     fetch(`https://jswntreports.com/rfid/vehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
-        //         if (this._mounted) {
-        //             if (response) {
-        //                 this.setState({ data: response.data })
-        //             } else {
-        //                 this.setState({ data: undefined })
-        //             }
-        //         }
-        //         this.setState({ SpinnerFlag: false })
-        //     }).catch((error) => {
-        //         this.setState({ data: undefined })
-        //         this.setState({ SpinnerFlag: false })
-        //     })
-        // }
+        if (role === 'Admin') {
+            fetch(`https://jswntreports.com/rfid/internalVehicleMovement/all`).then((response) => response.json()).then((response) => {
+                if (this._mounted) {
+                    if (response) {
+                        this.setState({ data: response.data })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
+                    } else {
+                        this.setState({ data: undefined })
+                    }
+                }
+                this.setState({ SpinnerFlag: false })
+            }).catch((error) => {
+                console.log(error)
+                this.setState({ SpinnerFlag: false })
+            })
+        }
+        else{
+            this.setState({ SpinnerFlag: true })
+            fetch(`https://jswntreports.com/rfid/internalVehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+                if (this._mounted) {
+                    if (response) {
+                        this.setState({ data: response.data })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
+                    } else {
+                        this.setState({ data: undefined })
+                    }
+                }
+                this.setState({ SpinnerFlag: false })
+            }).catch((error) => {
+                this.setState({ data: undefined })
+                this.setState({ SpinnerFlag: false })
+            })
+        }
     };
 
 
     getdataByDates= () => {
-    //     let startDate = this.state.startDate;
-    //     let endDate = this.state.endDate;
-    //     let leaseCode = localStorage.getItem('leaseCode')
-    //     this.setState({ SpinnerFlag: true })
-    //     const payload = {
-    //       method: "GET",
-    //       headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': "application/json",
-    //         'Access-Control-Allow-Origin': '*'
-    //       }
-    //     };
-    //     fetch(`https://jswntreports.com/rfid/getVmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
-    //         if (response) {
-    //             if(response.message === "No data found for the given Lease Code and date range"){
-    //                 alert("No Details Found for the Given Date Range")
-    //                 this.setState({ SpinnerFlag: false })
-    //             }
-    //             else{
-    //                 this.setState({ data: response.data})
-    //                 this.setState({ SpinnerFlag: false })
-    //             }
-              
-    //         } else {
-    //           this.setState({ data: [] })
-    //           this.setState({ SpinnerFlag: false })
-    //           alert("No Details Found for the Given Date Range")
-
-    //         }
+        let startDate = this.state.startDate;
+        let endDate = this.state.endDate;
+        let leaseCode = localStorage.getItem('leaseCode')
+        this.setState({ SpinnerFlag: true })
+        const payload = {
+          method: "GET",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': "application/json",
+            'Access-Control-Allow-Origin': '*'
+          }
+        };
+        let role = localStorage.getItem('roleType');
+        if (role === 'Admin') {
+            fetch(`https://jswntreports.com/rfid/getIvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+                if (response) {
+                    if(response.message === "No data found for the given Lease Code and date range"){
+                        alert("No Details Found for the Given Date Range")
+                        this.setState({ SpinnerFlag: false })
+                    }
+                    else{
+                        this.setState({ data: response.data})
+                        this.setState({ SpinnerFlag: false })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
+                    }
+                  
+                } else {
+                  this.setState({ data: [] })
+                  this.setState({ SpinnerFlag: false })
+                  alert("No Details Found for the Given Date Range")
     
-    //     }).catch((error) => {
-    //         this.setState({ SpinnerFlag: false })
-    //       console.log(error)
-    //     })
+                }
+        
+            }).catch((error) => {
+                this.setState({ SpinnerFlag: false })
+              console.log(error)
+            })
+        }
+        else{
+        fetch(`https://jswntreports.com/rfid/getIvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+            if (response) {
+                if(response.message === "No data found for the given Lease Code and date range"){
+                    alert("No Details Found for the Given Date Range")
+                    this.setState({ SpinnerFlag: false })
+                }
+                else{
+                    this.setState({ data: response.data})
+                    this.setState({ SpinnerFlag: false })
+                    const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                    this.setState({ totalNetWeight: totalNetWeight})
+                }
+              
+            } else {
+              this.setState({ data: [] })
+              this.setState({ SpinnerFlag: false })
+              alert("No Details Found for the Given Date Range")
+
+            }
+    
+        }).catch((error) => {
+            this.setState({ SpinnerFlag: false })
+          console.log(error)
+        })
+       }
        };
 
     handleChangePage = (event, newPage) => {
@@ -156,29 +191,45 @@ class InternalMasterList extends Component {
 
     handleExportClick = () => {
         const { data } = this.state;
-        
+    
+        // Calculate the total net weight
+        const totalNetWeight = data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+    
+        // Prepare the export data
         const exportData = data.map((row) => ({
-          'SL NO': row.SL_NO,
+          'SL NO': row.ID,
           'Vehicle Number': row.VEHICLE_NUMBER,
-          'Type of Material':row.MATERIAL_TYPE,
+          'Type of Material': row.MATERIAL_TYPE,
           'Tare Weight': row.TARE_WEIGHT,
           'Gross Weight': row.GROSS_WEIGHT,
-          'Net Weight' :row.NET_WEIGHT,
-          'Tare Date & Time' : row.TARE_DATE_TIME,
-          'Gross Date & Time' : row.GROSS_DATE_TIME
+          'Net Weight': row.NET_WEIGHT,
+          'Tare Date & Time': row.TARE_DATE_TIME,
+          'Gross Date & Time': row.GROSS_DATE_TIME
         }));
     
+        // Add the total row
+        exportData.push({
+          'SL NO': '',
+          'Vehicle Number': '',
+          'Type of Material': '',
+          'Tare Weight': '',
+          'Gross Weight': '',
+          'Net Weight': `Total: ${totalNetWeight.toFixed(2)}`,
+          'Tare Date & Time': '',
+          'Gross Date & Time': ''
+        });
+    
         // Create a worksheet from the data
-        // const ws = XLSX.utils.json_to_sheet(exportData);
+        const ws = XLSX.utils.json_to_sheet(exportData);
     
         // Create a workbook with the worksheet
-        // const wb = XLSX.utils.book_new();
-        // XLSX.utils.book_append_sheet(wb, ws, 'Exported Data');
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Exported Data');
     
         // Save the workbook as an XLSX file
-      //  XLSX.writeFile(wb, 'exported_data.xlsx');
-      };
-
+        XLSX.writeFile(wb, 'exported_data.xlsx');
+    };
+    
 
     render() {
         const { data, page, rowsPerPage } = this.state;
@@ -288,14 +339,14 @@ class InternalMasterList extends Component {
                                                 tabIndex={-1}
                                             >
 
-                                                <TableCell>{SrvCnfg.SL_NO}</TableCell>
+                                                <TableCell>{SrvCnfg.ID}</TableCell>
                                                 <TableCell>{SrvCnfg.VEHICLE_NUMBER}</TableCell>
                                                 <TableCell>{SrvCnfg.MATERIAL_TYPE}</TableCell>
                                                 <TableCell>{SrvCnfg.TARE_WEIGHT}</TableCell>
                                                 <TableCell>{SrvCnfg.GROSS_WEIGHT}</TableCell>
                                                 <TableCell>{SrvCnfg.NET_WEIGHT}</TableCell>
-                                                <TableCell>{SrvCnfg.TARE_DATE_TIME}</TableCell>
-                                                <TableCell>{SrvCnfg.GROSS_DATE_TIME}</TableCell>
+                                                <TableCell>{SrvCnfg.JOURNEY_START_DATE}</TableCell>
+                                                <TableCell>{SrvCnfg.JOURNEY_END_DATE}</TableCell>
                                             </TableRow>
                                         );
                                     }) : <TableRow><TableCell colSpan={8} className="table_NoData_style">"No records found"</TableCell></TableRow>

@@ -91,7 +91,33 @@ class VechileMasterList extends Component {
             'Access-Control-Allow-Origin': '*'
           }
         };
-        fetch(`https://jswntreports.com/rfid/getByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+        let role = localStorage.getItem('roleType');
+        if (role === 'Admin') {
+            fetch(`https://jswntreports.com/rfid/getvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+                if (response) {
+                    if(response.message === "No data found for the given Lease Code and date range"){
+                        alert("No Details Found for the Given Date Range")
+                        this.setState({ SpinnerFlag: false })
+                    }
+                    else{
+                        this.setState({ data: response.data})
+                        this.setState({ SpinnerFlag: false })
+                    }
+                  
+                } else {
+                  this.setState({ data: [] })
+                  this.setState({ SpinnerFlag: false })
+                  alert("No Details Found for the Given Date Range")
+    
+                }
+        
+            }).catch((error) => {
+                this.setState({ SpinnerFlag: false })
+              console.log(error)
+            })
+        }
+        else{
+        fetch(`https://jswntreports.com/rfid/getvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
             if (response) {
                 if(response.message === "No data found for the given Lease Code and date range"){
                     alert("No Details Found for the Given Date Range")
@@ -113,7 +139,8 @@ class VechileMasterList extends Component {
             this.setState({ SpinnerFlag: false })
           console.log(error)
         })
-      };
+       }
+       };
 
     handleChangePage = (event, newPage) => {
         this.setState({ page: newPage });

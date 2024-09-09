@@ -46,7 +46,7 @@ class InternalMasterList extends Component {
         
         let role = localStorage.getItem('roleType');
         if (role === 'Admin') {
-            fetch(`https://jswntreports.com/rfid/internalVehicleMovement/all`).then((response) => response.json()).then((response) => {
+            fetch(`${process.env.REACT_APP_API_URL}/rfid/internalVehicleMovement/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -64,7 +64,7 @@ class InternalMasterList extends Component {
         }
         else{
             this.setState({ SpinnerFlag: true })
-            fetch(`https://jswntreports.com/rfid/internalVehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+            fetch(`${process.env.REACT_APP_API_URL}/rfid/internalVehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -98,7 +98,7 @@ class InternalMasterList extends Component {
         };
         let role = localStorage.getItem('roleType');
         if (role === 'Admin') {
-            fetch(`https://jswntreports.com/rfid/getIvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+            fetch(`${process.env.REACT_APP_API_URL}/rfid/getIvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
                 if (response) {
                     if(response.message === "No data found for the given Lease Code and date range"){
                         alert("No Details Found for the Given Date Range")
@@ -124,7 +124,7 @@ class InternalMasterList extends Component {
             })
         }
         else{
-        fetch(`https://jswntreports.com/rfid/getIvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+        fetch(`${process.env.REACT_APP_API_URL}/rfid/getIvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
             if (response) {
                 if(response.message === "No data found for the given Lease Code and date range"){
                     alert("No Details Found for the Given Date Range")

@@ -203,8 +203,8 @@ class InternalMasterList extends Component {
           'Tare Weight': row.TARE_WEIGHT,
           'Gross Weight': row.GROSS_WEIGHT,
           'Net Weight': row.NET_WEIGHT,
-          'Tare Date & Time': row.TARE_DATE_TIME,
-          'Gross Date & Time': row.GROSS_DATE_TIME
+          'Tare Date & Time': row.JOURNEY_START_DATE,
+          'Gross Date & Time': row.JOURNEY_END_DATE
         }));
     
         // Add the total row
@@ -215,8 +215,8 @@ class InternalMasterList extends Component {
           'Tare Weight': '',
           'Gross Weight': '',
           'Net Weight': `Total: ${totalNetWeight.toFixed(2)}`,
-          'Tare Date & Time': '',
-          'Gross Date & Time': ''
+          'Journey Start Date': '',
+          'Journey End Date': ''
         });
     
         // Create a worksheet from the data

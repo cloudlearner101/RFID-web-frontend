@@ -86,17 +86,17 @@ class DrawerComponent extends Component {
                   </ListItemIcon>
                   <ListItemText primary="PC Configuration" />
                 </ListItem>
-                <ListItem button component={Link} to="/vechileMaster">
+                <ListItem button component={Link} to="/VehicleMaster">
                   <ListItemIcon>
                     <ViewListIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Master" />
+                  <ListItemText primary="Vehicle Master" />
                 </ListItem>
-                <ListItem button component={Link} to="/vechileMovement">
+                <ListItem button component={Link} to="/VehicleMovement">
                   <ListItemIcon>
                     <LocalShippingIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Movement Report" />
+                  <ListItemText primary="Vehicle Movement Report" />
                 </ListItem>
                 
               </List>
@@ -116,23 +116,30 @@ class DrawerComponent extends Component {
                   </div>
                   <div><hr color='white'></hr></div>
                 </div>
+                
                 <ListItem button component={Link} to="/Dashboard">
                   <ListItemIcon>
                     <DashboardIcon className='icon-color'/>
                   </ListItemIcon >
                   <ListItemText primary="Overview" />
                 </ListItem>
-                <ListItem button component={Link} to="/vechileMaster">
+                <ListItem button component={Link} to="/lotConfiguration">
+                  <ListItemIcon>
+                    <DvrTwoToneIcon className='icon-color'/>
+                  </ListItemIcon>
+                  <ListItemText primary="Lot Number Configuration" />
+                </ListItem>
+                <ListItem button component={Link} to="/VehicleMaster">
                   <ListItemIcon>
                     <ViewListIcon className='icon-color'/>
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Master List" />
+                  <ListItemText primary="Vehicle Master List" />
                 </ListItem>
-                <ListItem button component={Link} to="/vechileMovement">
+                <ListItem button component={Link} to="/VehicleMovement">
                   <ListItemIcon>
                     <LocalShippingIcon className='icon-color' />
                   </ListItemIcon>
-                  <ListItemText primary="Vechile Movement Report" />
+                  <ListItemText primary="Vehicle Movement Report" />
                 </ListItem>
               </List>
             }

@@ -4,8 +4,9 @@ import Login from './Pages/Login';
 import Dashboard from './Pages/Page1/Dashboard';
 import PcConfiguration from './Pages/PCConfiguration/PcConfiguration';
 import PrivateRoute from './PrivateRoute';
-import VechileMovementReport from './Pages/VechileMovementReport/VechileMovementReport';
-import VechileMasterList from './Pages/VechileMaster/VechileMasterList';
+import VehicleMovementReport from './Pages/VehicleMovementReport/VehicleMovementReport';
+import VehicleMasterList from './Pages/VehicleMaster/VehicleMasterList';
+import LotConfiguration from './Pages/LotMaster/LotConfiguration';
 
 
 
@@ -41,15 +42,29 @@ const MainRouter = (props) => (
         />
 
         <PrivateRoute
-            path="/vechileMovement"
-            component={VechileMovementReport}
+            path="/VehicleMovement"
+            component={VehicleMovementReport}
             isAuthenticated={localStorage.getItem('isLoggedIn')}
             {...props}
         />
 
         <PrivateRoute
-            path="/vechileMaster"
-            component={VechileMasterList}
+            path="/VehicleMaster"
+            component={VehicleMasterList}
+            isAuthenticated={localStorage.getItem('isLoggedIn')}
+            {...props}
+        />
+
+        <PrivateRoute
+            path="/VehicleMaster"
+            component={VehicleMasterList}
+            isAuthenticated={localStorage.getItem('isLoggedIn')}
+            {...props}
+        />
+
+        <PrivateRoute
+            path="/lotConfiguration"
+            component={LotConfiguration}
             isAuthenticated={localStorage.getItem('isLoggedIn')}
             {...props}
         />

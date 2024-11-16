@@ -37,7 +37,7 @@ class AddLotConfiguration extends Component {
   handleSaveData = (data) => {
     if (this.props.actionMode === 'ADD') {
       return new Promise((resolve, reject) => {
-        fetch(`${process.env.REACT_APP_API_URL}/rfid/insertLotNumber`, {
+        fetch(`http://localhost:3001/rfid/insertLotNumber`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -63,7 +63,7 @@ class AddLotConfiguration extends Component {
 
     } else if (this.props.actionMode === 'EDIT') {
       return new Promise((resolve, reject) => {
-        fetch(`${process.env.REACT_APP_API_URL}/rfid/updateLotNumber/${this.state.LotConfigData.id}`, {
+        fetch(`http://localhost:3001/rfid/updateLotNumber/${this.state.LotConfigData.id}`, {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',

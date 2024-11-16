@@ -9,6 +9,7 @@ import DvrTwoToneIcon from '@mui/icons-material/DvrTwoTone';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { Link } from 'react-router-dom';
 
 class DrawerComponent extends Component {
@@ -98,7 +99,12 @@ class DrawerComponent extends Component {
                   </ListItemIcon>
                   <ListItemText primary="Vehicle Movement Report" />
                 </ListItem>
-                
+                <ListItem button component={Link} to="/internalMaster">
+                  <ListItemIcon>
+                    <DescriptionIcon className='icon-color'/>
+                  </ListItemIcon>
+                  <ListItemText primary="Internal Movement Report" />
+                </ListItem>
               </List>
              : 
               <List className='list-view'>
@@ -140,6 +146,12 @@ class DrawerComponent extends Component {
                     <LocalShippingIcon className='icon-color' />
                   </ListItemIcon>
                   <ListItemText primary="Vehicle Movement Report" />
+                </ListItem>
+                <ListItem button component={Link} to="/internalMaster">
+                  <ListItemIcon>
+                    <DescriptionIcon className='icon-color'/>
+                  </ListItemIcon>
+                  <ListItemText primary="Internal Movement Report" />
                 </ListItem>
               </List>
             }

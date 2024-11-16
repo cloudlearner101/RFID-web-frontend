@@ -7,7 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import VehicleMovementReport from './Pages/VehicleMovementReport/VehicleMovementReport';
 import VehicleMasterList from './Pages/VehicleMaster/VehicleMasterList';
 import LotConfiguration from './Pages/LotMaster/LotConfiguration';
-
+import InternalMasterList from './Pages/InternalmovementReport/InternalMovementReport';
 
 
 function AuthenticateRoute({ component: Component, authenticated, authSuccessUrl, ...rest }) {
@@ -58,6 +58,13 @@ const MainRouter = (props) => (
         <PrivateRoute
             path="/VehicleMaster"
             component={VehicleMasterList}
+            isAuthenticated={localStorage.getItem('isLoggedIn')}
+            {...props}
+        />
+
+<PrivateRoute
+            path="/internalMaster"
+            component={InternalMasterList}
             isAuthenticated={localStorage.getItem('isLoggedIn')}
             {...props}
         />

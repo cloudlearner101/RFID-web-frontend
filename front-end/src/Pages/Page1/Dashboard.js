@@ -89,7 +89,7 @@ class Dashboard extends Component {
         },
         body: JSON.stringify(this.state)
       };
-      fetch(`${process.env.REACT_APP_API_URL}/rfid/getVehicleDetails`, payload).then((response) => response.json()).then((response) => {
+      fetch(`http://localhost:3001/rfid/getVehicleDetails`, payload).then((response) => response.json()).then((response) => {
         if (this._mounted) {
           if (response) {
             this.setState({ data: response.vehicleDetails})

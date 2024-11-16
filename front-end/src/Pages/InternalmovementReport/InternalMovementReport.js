@@ -12,26 +12,28 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import * as XLSX from 'xlsx';
 
-
-class VechileMasterList extends Component {
+let searchFocusStyle = {};
+class InternalMasterList extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             loginSuccess: true,
+            totalNetWeight:0,
             roleType: '',
             data: [],
             page: 0,
             rowsPerPage: 10,
             startDate: new Date(),
             endDate: new Date(),
-            SpinnerFlag: false
+            SpinnerFlag: false,
+            filterType:''
         }
     }
 
     componentDidMount() {
         this._mounted = true;
-        console.log("hello")
+        // console.log("hello")
         this.getdata();
     };
 
@@ -45,10 +47,12 @@ class VechileMasterList extends Component {
         
         let role = localStorage.getItem('roleType');
         if (role === 'Admin') {
-            fetch(`http://localhost:3001/rfid/vehicleMovement/all`).then((response) => response.json()).then((response) => {
+            fetch(`http://localhost:3001/rfid/internalVehicleMovement/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
                     } else {
                         this.setState({ data: undefined })
                     }
@@ -61,10 +65,12 @@ class VechileMasterList extends Component {
         }
         else{
             this.setState({ SpinnerFlag: true })
-            fetch(`http://localhost:3001/rfid/vehicleMovement/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+            fetch(`http://localhost:3001/rfid/internalVehicleMovement/${encodeURIComponent(localStorage.getItem('leaseCode'))}`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
                     } else {
                         this.setState({ data: undefined })
                     }
@@ -93,7 +99,7 @@ class VechileMasterList extends Component {
         };
         let role = localStorage.getItem('roleType');
         if (role === 'Admin') {
-            fetch(`http://localhost:3001/rfid/getvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+            fetch(`http://localhost:3001/rfid/getIvmByDate?startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
                 if (response) {
                     if(response.message === "No data found for the given Lease Code and date range"){
                         alert("No Details Found for the Given Date Range")
@@ -102,6 +108,8 @@ class VechileMasterList extends Component {
                     else{
                         this.setState({ data: response.data})
                         this.setState({ SpinnerFlag: false })
+                        const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                        this.setState({ totalNetWeight: totalNetWeight})
                     }
                   
                 } else {
@@ -117,7 +125,7 @@ class VechileMasterList extends Component {
             })
         }
         else{
-        fetch(`http://localhost:3001/rfid/getvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
+        fetch(`http://localhost:3001/rfid/getIvmByLeaseCodeAndDate?leaseCode=${leaseCode}&startDate=${startDate}&endDate=${endDate}`,payload).then((response) => response.json()).then((response) => {
             if (response) {
                 if(response.message === "No data found for the given Lease Code and date range"){
                     alert("No Details Found for the Given Date Range")
@@ -126,6 +134,8 @@ class VechileMasterList extends Component {
                 else{
                     this.setState({ data: response.data})
                     this.setState({ SpinnerFlag: false })
+                    const totalNetWeight = response.data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+                    this.setState({ totalNetWeight: totalNetWeight})
                 }
               
             } else {
@@ -143,7 +153,7 @@ class VechileMasterList extends Component {
        };
 
     handleChangePage = (event, newPage) => {
-        this.setState({ page: newPage });
+       this.setState({ page: newPage });
     };
 
     handleChangeRowsPerPage = (event) => {
@@ -182,19 +192,35 @@ class VechileMasterList extends Component {
 
     handleExportClick = () => {
         const { data } = this.state;
-        
+    
+        // Calculate the total net weight
+        const totalNetWeight = data.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+    
+        // Prepare the export data
         const exportData = data.map((row) => ({
-          'ID': row.ID,
+          'SL NO': row.ID,
           'Vehicle Number': row.VEHICLE_NUMBER,
-          "Vehicle Type": row.VEHICLE_TYPE,
-          "Tag ID": row.TAG_ID,
-          'Transporter Name': row.TRANSPORTER_NAME,
+          'Type of Material': row.MATERIAL_TYPE,
+          'Lot Number': row.LOT_NUMBER,
           'Tare Weight': row.TARE_WEIGHT,
           'Gross Weight': row.GROSS_WEIGHT,
-          'Net Weight' :row.NET_WEIGHT,
-          'Journey Start Date' : row.JOURNEY_START_DATE,
-          'Journey End Date' : row.JOURNEY_END_DATE 
+          'Net Weight': row.NET_WEIGHT,
+          'Tare Date & Time': row.JOURNEY_START_DATE,
+          'Gross Date & Time': row.JOURNEY_END_DATE
         }));
+    
+        // Add the total row
+        exportData.push({
+          'SL NO': '',
+          'Vehicle Number': '',
+          'Type of Material': '',
+          'Lot Number': '',
+          'Tare Weight': '',
+          'Gross Weight': '',
+          'Net Weight': `Total: ${totalNetWeight.toFixed(2)}`,
+          'Journey Start Date': '',
+          'Journey End Date': ''
+        });
     
         // Create a worksheet from the data
         const ws = XLSX.utils.json_to_sheet(exportData);
@@ -205,8 +231,59 @@ class VechileMasterList extends Component {
     
         // Save the workbook as an XLSX file
         XLSX.writeFile(wb, 'exported_data.xlsx');
+    };
+
+    filterList = (event) => {
+        searchFocusStyle = {};
+        let updatedList = this.state.data;
+    
+
+            if(this.state.filterType =='vehicleNumber'){
+                updatedList = updatedList.filter(function (item) {
+                    let vehicleNumber = item.VEHICLE_NUMBER ? item.VEHICLE_NUMBER.toString().toLowerCase() : item.VEHICLE_NUMBER;
+                    let searchedValue = vehicleNumber;
+                    return searchedValue.indexOf(event.target.value.toLowerCase()) !== -1;
+
+                });
+            }else if(this.state.filterType =='lotNumber'){
+                updatedList = updatedList.filter(function (item) {
+                    let lotNumber = item.LOT_NUMBER ? item.LOT_NUMBER.toString().toLowerCase() : item.LOT_NUMBER;
+                    let searchedValue = lotNumber;
+                    return searchedValue.indexOf(event.target.value.toLowerCase()) !== -1;
+
+                });
+            }
+            else if(this.state.filterType =='materialType'){
+                updatedList = updatedList.filter(function (item) {
+                    let materialType = item.MATERIAL_TYPE ? item.MATERIAL_TYPE.toString().toLowerCase() : item.MATERIAL_TYPE;
+                    let searchedValue = materialType;
+                    return searchedValue.indexOf(event.target.value.toLowerCase()) !== -1;
+
+                });
+            }
+            else{
+                updatedList = this.state.data; 
+            }
+
+
+    
+        this.setState({ data: updatedList});
+        const totalNetWeight = updatedList.reduce((sum, row) => sum + (parseFloat(row.NET_WEIGHT) || 0), 0);
+        this.setState({ totalNetWeight: totalNetWeight})
+        if (event.target.value) {
+          searchFocusStyle = { width: '200px' };
+          this.setState({ rowsPerPage: 10000, page: 0 })
+        } else {
+          this.getdata();
+          this.setState({ rowsPerPage: 10, page: 0 })
+        }
       };
 
+      handleInputChange =(val) => {
+        this.setState({filterType: val})
+      }
+
+    
 
     render() {
         const { data, page, rowsPerPage } = this.state;
@@ -219,17 +296,15 @@ class VechileMasterList extends Component {
         const pageData = data.slice(startIndex, endIndex);
 
         const headRows = [
-            { id: 'ID', alignment: 'left', disablePadding: false, label: "ID" },
+            { id: 'SL_NO', alignment: 'left', disablePadding: false, label: "SL NO" },
             { id: 'VEHICLE_NUMBER', alignment: 'left', disablePadding: false, label: "Vehicle Number" },
-            { id: 'VEHICLE_TYPE', alignment: 'left', disablePadding: false, label: "Vehicle Type" },
-            { id: 'TAG_ID', alignment: 'center', disablePadding: false, label: "Tag ID" },
-            { id: 'TRANSPORTER_NAME', alignment: 'left', disablePadding: false, label: "Transporter Name" },
+            { id: 'MATERIAL_TYPE', alignment: 'left', disablePadding: false, label: "Material Type" },
+            { id: 'LOT_NUMBER', alignment: 'left', disablePadding: false, label: "Lot Number" },
             { id: 'TARE_WEIGHT', alignment: 'left', disablePadding: false, label: "Tare Weight" },
-            { id: 'GROSS_WEIGHT', alignment: 'left', disablePadding: false, label: "Gross Weight" },
+            { id: 'GROSS__WEIGHT', alignment: 'left', disablePadding: false, label: "Gross Weight" },
             { id: 'NET_WEIGHT', alignment: 'left', disablePadding: false, label: "Net Weight" },
-            { id: 'JOURNEY_START_DATE', alignment: 'left', disablePadding: false, label: "Journey Start Date" },
-            { id: 'JOURNEY_END_DATE', alignment: 'left', disablePadding: false, label: "Journey End Date" },
-            // { id: 'action', alignment: 'left', disablePadding: false, label: "Edit" }
+            { id: 'TARE_DATE_TIME', alignment: 'left', disablePadding: false, label: "TARE DATE TIME" },
+            { id: 'GROSS_DATE_TIME', alignment: 'left', disablePadding: false, label: "GROSS DATE TIME" }
         ];
         return (
             <div className="dashboard-container">
@@ -239,10 +314,24 @@ class VechileMasterList extends Component {
                 <div className='main-dhpc-export'>
                     <Toolbar className="header">
                         <Typography variant="h6" id="tableTitle">
-                            <p className='dhpc-style'>Vehicle Movement Report</p>
+                            <p className='dhpc-style'>Internal Movement Report</p>
                         </Typography>
 
-                        <div style={{ flex: '1 1 35%' }} />
+                        <div style={{ flex: '1 1 10%' }} />
+                        <p className='total-net-weight'>Total Net Weight</p>
+                        <div className="right-panel-action">
+                            <input
+                                type='text'
+                                value={this.state.totalNetWeight}
+                                readOnly
+                                className="netWeight"
+                            />
+                            
+                        </div>
+                        <div className="right-panel-action">
+                            <p className="mt">MT</p>
+                        </div>
+                        
                         <div className="right-panel-action">
                             <input
                                 type='date'
@@ -273,6 +362,24 @@ class VechileMasterList extends Component {
                         </div>
 
                     </Toolbar>
+                </div>
+                <div className='filter-options'>
+                    <div className="filter-dropdown">
+                        <select
+                            className="dropdown"
+                            value={this.state.filterType || ''}
+                            onChange={(e) => this.handleInputChange(e.target.value)}
+                        >
+                            <option value="">Select Filter Type</option>
+                            <option value="vehicleNumber">Vehicle Number</option>
+                            <option value="lotNumber">Lot Number</option>
+                            <option value="materialType">Material Type</option>
+                        </select>
+                    </div>
+                    <div className="filter-search">
+                        <input type="text" className="form-control" style={searchFocusStyle} placeholder="Search..." onChange={this.filterList} />
+                        <i className="glyphicon glyphicon-search" />
+                    </div> 
                 </div>
                 <hr></hr>
                 <Paper className="custom_paper">
@@ -306,9 +413,8 @@ class VechileMasterList extends Component {
 
                                                 <TableCell>{SrvCnfg.ID}</TableCell>
                                                 <TableCell>{SrvCnfg.VEHICLE_NUMBER}</TableCell>
-                                                <TableCell>{SrvCnfg.VEHICLE_TYPE}</TableCell>
-                                                <TableCell>{SrvCnfg.TAG_ID}</TableCell>
-                                                <TableCell>{SrvCnfg.TRANSPORTER_NAME}</TableCell>
+                                                <TableCell>{SrvCnfg.MATERIAL_TYPE}</TableCell>
+                                                <TableCell>{SrvCnfg.LOT_NUMBER}</TableCell>
                                                 <TableCell>{SrvCnfg.TARE_WEIGHT}</TableCell>
                                                 <TableCell>{SrvCnfg.GROSS_WEIGHT}</TableCell>
                                                 <TableCell>{SrvCnfg.NET_WEIGHT}</TableCell>
@@ -341,4 +447,4 @@ class VechileMasterList extends Component {
     }
 }
 
-export default VechileMasterList;
+export default InternalMasterList;

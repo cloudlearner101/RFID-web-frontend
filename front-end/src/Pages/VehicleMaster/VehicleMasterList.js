@@ -42,7 +42,7 @@ class VehicleMasterList extends Component {
        
         let role = localStorage.getItem('roleType');
         if(role ==='Admin'){
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMaster/all`).then((response) => response.json()).then((response) => {
+            fetch(`http://localhost:3001/rfid/vehicleMaster/all`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })
@@ -58,7 +58,7 @@ class VehicleMasterList extends Component {
         }
         else{
             this.setState({ SpinnerFlag: true })
-            fetch(`${process.env.REACT_APP_API_URL}/rfid/vehicleMaster/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
+            fetch(`http://localhost:3001/rfid/vehicleMaster/${localStorage.getItem('leaseCode')}`).then((response) => response.json()).then((response) => {
                 if (this._mounted) {
                     if (response) {
                         this.setState({ data: response.data })

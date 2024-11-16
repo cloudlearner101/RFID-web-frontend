@@ -83,7 +83,7 @@ background: sienna;
     padding: -1px 15px;
     background-color: sienna;
     color: navajowhite;
-    position: fixed;
+    position: relative;
     z-index: 99;
     bottom: 0; 
     width: 100%;
@@ -540,4 +540,43 @@ background: sienna;
 
 .label-bold{
   font-weight: 600;
+}
+
+.netWeight{
+  max-width: 100px;
+  font-weight: 800;
+}
+.total-net-weight{
+  max-width: 200px;
+  font-size: 1rem;
+  padding-top: 20px;
+  padding-left: 8rem;
+  font-weight: 700;
+  color: sienna;
+}
+.mt{
+  font-weight: 700;
+    color: sienna;
+    width: 20px;
+  color: sienna;
+  margin-left: -8px;
+  padding-top: 10px;
+  margin-right: 32px;
+}
+.netflex{
+  display: flex
+}
+
+.filter-options{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.filter-dropdown{
+  margin-right: 10px;
+}
+
+.filter-search{
+  margin-right: 20px;
 }

@@ -50,9 +50,9 @@ class LotConfigurationList extends Component {
   getdata() {
     this.setState({ SpinnerFlag: true })
 
-    let leaseCode = localStorage.getItem('leaseCode');
+    let leaseCode = encodeURIComponent(localStorage.getItem('leaseCode'));
    
-    fetch(`${process.env.REACT_APP_API_URL}/rfid/fetchLotNumbers?${leaseCode}`).then((response) => response.json()).then((response) => {
+    fetch(`http://localhost:3001/rfid/fetchLotNumbers?leaseCode=${leaseCode}`).then((response) => response.json()).then((response) => {
       
       console.log(response)
       if (this._mounted) {
@@ -99,7 +99,7 @@ class LotConfigurationList extends Component {
   //Update API
   getSelectedData = (data) => {
     
-    fetch(`${process.env.REACT_APP_API_URL}/rfid/fetchLotNumberbyID/${data.id}`).then((response) => response.json()).then((response) => {
+    fetch(`http://localhost:3001/rfid/fetchLotNumberbyID/${data.id}`).then((response) => response.json()).then((response) => {
       console.log("Response from edit api", response)
       if (response) {
         this.props.handlePages(false, 'EDIT', response)

@@ -50,7 +50,7 @@ class PcConfigurationList extends Component {
   getdata() {
     this.setState({ SpinnerFlag: true })
    
-    fetch(`http://localhost:3001/rfid/pcConfigDtls`).then((response) => response.json()).then((response) => {
+    fetch(`${process.env.REACT_APP_API_URL}/rfid/pcConfigDtls`).then((response) => response.json()).then((response) => {
       if (this._mounted) {
         if (response) {
           this.setState({ data: response.data })
@@ -95,7 +95,7 @@ class PcConfigurationList extends Component {
   //Update API
   getSelectedData = (data) => {
     
-    fetch(`http://localhost:3001/rfid/getPcConfigById/${data.ID}`).then((response) => response.json()).then((response) => {
+    fetch(`${process.env.REACT_APP_API_URL}/rfid/getPcConfigById/${data.ID}`).then((response) => response.json()).then((response) => {
       console.log("Response from edit api", response)
       if (response.data) {
         this.props.handlePages(false, 'EDIT', response.data)

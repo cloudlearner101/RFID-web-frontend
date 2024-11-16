@@ -49,7 +49,7 @@ class AddPCConfiguration extends Component {
   handleSaveData = (data) => {
     if (this.props.actionMode === 'ADD') {
       return new Promise((resolve, reject) => {
-        fetch(`http://localhost:3001/rfid/addNewUser`, {
+        fetch(`${process.env.REACT_APP_API_URL}/rfid/addNewUser`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -73,7 +73,7 @@ class AddPCConfiguration extends Component {
 
     } else if (this.props.actionMode === 'EDIT') {
       return new Promise((resolve, reject) => {
-        fetch(`http://localhost:3001/rfid/modifyUser/${this.state.PCConfigData.id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/rfid/modifyUser/${this.state.PCConfigData.id}`, {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
